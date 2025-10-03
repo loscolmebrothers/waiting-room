@@ -1,34 +1,60 @@
-import { useState } from 'react';
-import { Stage, Layer, Rect } from 'react-konva';
+import { Stage, Layer, Image, Group, Rect } from "react-konva";
+import useImage from "use-image";
 
 function App() {
-  const [position, setPosition] = useState({ x: 200, y: 200 });
+  const [LOS] = useImage(
+    "https://assets.loscolmebrothers.com/logo/slices/vector/LOS.svg",
+  );
+  const [COLME] = useImage(
+    "https://assets.loscolmebrothers.com/logo/slices/vector/COLME.svg",
+  );
 
-  console.log(window.innerHeight, window.innerWidth)
+  const [BROTHERS] = useImage(
+    "https://assets.loscolmebrothers.com/logo/slices/vector/BROTHERS.svg",
+  );
+
+  const isLogoLoading = !LOS || !COLME || !BROTHERS;
+
+  const layerWidth = window.innerWidth / 2;
+  const layerHeight = window.innerHeight / 2;
+  const gap = 65;
+
+  if (isLogoLoading) return <div> Loading...</div>;
+
   return (
-    <div className='container'>
-      <Stage width={700} height={500} className='frame'>
-        <Layer>
-          <Rect x={position.x} y={position.y} width={100} height={100} fill="blue" draggable
-            onMouseEnter={(e) => {
-              document.body.style.cursor = 'grab';
-            }}
-            onMouseLeave={(e) => {
-              document.body.style.cursor = 'default';
-            }}
-            onDragStart={(e) => {
-              document.body.style.cursor = 'move';
-            }}
-            onDragEnd={(e) => {
-              document.body.style.cursor = 'grab';
-              setPosition({
-                x: e.target.x(),
-                y: e.target.y()
-              });
-            }} />
-        </Layer>
-      </Stage>
-    </div>
+    <Stage
+      width={window.innerWidth}
+      height={window.innerHeight}
+      className="frame"
+    >
+      <Layer
+        id="logo__layer"
+        x={layerWidth}
+        y={layerHeight}
+        offsetX={layerWidth}
+        offsetY={layerHeight}
+      >
+        <Group x={layerWidth} y={layerHeight - gap}>
+          <Image
+            image={LOS}
+            y={-((gap * 3) / 2)}
+            offsetX={LOS.width / 2}
+            offsetY={LOS.height / 2}
+          />
+          <Image
+            image={COLME}
+            offsetX={COLME.width / 2}
+            offsetY={COLME.height / 2}
+          />
+          <Image
+            image={BROTHERS}
+            y={(gap * 24) / 13}
+            offsetX={BROTHERS.width / 2}
+            offsetY={BROTHERS.height / 2}
+          />
+        </Group>
+      </Layer>
+    </Stage>
   );
 }
 

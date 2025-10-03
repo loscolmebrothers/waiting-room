@@ -1,11 +1,14 @@
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: aliceblue;
-  padding: 12px;
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
 }
 
 .frame {
-  background-color: white;
+    background-color: red;
+}
+
+.logo {
+    background-color: blue;
 }
