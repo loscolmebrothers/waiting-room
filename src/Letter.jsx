@@ -6,8 +6,11 @@ import { setCursor } from "./helpers/cursor";
 import layerManager from "./helpers/layer-manager";
 import { useRef } from "react";
 
-function DraggablePaperGroup({ width, children }) {
+const visibleCardGap = 25;
+
+function DraggablePaperGroup({ children }) {
   const { Group: AnimatedGroup } = animated;
+  const { width } = useWindowSize();
   const groupRef = useRef();
 
   const [animation, api] = useSpring(() => ({
@@ -82,48 +85,65 @@ function DraggablePaperGroup({ width, children }) {
     </AnimatedGroup>
   );
 }
-
-function Letter() {
+function Paper() {
   const { width, height } = useWindowSize();
-
-  const envelopeWidth = 600;
-  const envelopeHeight = 500;
 
   const paperWidth = 580;
   const paperHeight = 500;
 
-  const visibleCardGap = 25;
+  return (
+    <Rect
+      x={(width - paperWidth) / 2}
+      y={height - visibleCardGap - 15}
+      width={paperWidth}
+      height={paperHeight}
+      fill="white"
+      cornerRadius={6}
+    />
+  );
+}
 
+function Tab() {
+  const { width, height } = useWindowSize();
   const tabWidth = 35;
   const tabHeight = 40;
 
   return (
+    <Rect
+      x={(width - tabWidth) / 2}
+      y={height - visibleCardGap - 50}
+      width={tabWidth}
+      height={tabHeight}
+      fill="teal"
+    />
+  );
+}
+
+function Envelope() {
+  const { width, height } = useWindowSize();
+  const envelopeWidth = 600;
+  const envelopeHeight = 500;
+
+  return (
+    <Rect
+      x={(width - envelopeWidth) / 2}
+      y={height - visibleCardGap}
+      width={envelopeWidth}
+      height={envelopeHeight}
+      fill="red"
+      cornerRadius={2}
+    />
+  );
+}
+
+function Letter() {
+  return (
     <Layer zIndex={layerManager.letter}>
-      <DraggablePaperGroup width={width}>
-        <Rect
-          x={(width - paperWidth) / 2}
-          y={height - visibleCardGap - 15}
-          width={paperWidth}
-          height={paperHeight}
-          fill="white"
-          cornerRadius={6}
-        />
-        <Rect
-          x={(width - tabWidth) / 2}
-          y={height - visibleCardGap - 50}
-          width={tabWidth}
-          height={tabHeight}
-          fill="teal"
-        />
+      <DraggablePaperGroup>
+        <Paper />
+        <Tab />
       </DraggablePaperGroup>
-      <Rect
-        x={(width - envelopeWidth) / 2}
-        y={height - visibleCardGap}
-        width={envelopeWidth}
-        height={envelopeHeight}
-        fill="red"
-        cornerRadius={2}
-      />
+      <Envelope />
     </Layer>
   );
 }
