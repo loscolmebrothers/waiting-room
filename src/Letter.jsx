@@ -1,12 +1,13 @@
-import { Layer, Rect, Text } from "react-konva";
+import { useRef } from "react";
+import { Group, Layer, Rect, Text } from "react-konva";
 import { useSpring, animated } from "@react-spring/konva";
 
 import useWindowSize from "./useWindowSize";
 import { setCursor } from "./helpers/cursor";
 import layerManager from "./helpers/layer-manager";
-import { useRef } from "react";
 
-const visibleCardGap = 25;
+const visibleCardGap = 35;
+const paperHeight = 120;
 
 function DraggablePaperGroup({ children }) {
   const { Group: AnimatedGroup } = animated;
@@ -19,7 +20,7 @@ function DraggablePaperGroup({ children }) {
   }));
 
   function dragBound(position) {
-    const maxVerticalDistance = -200;
+    const maxVerticalDistance = -paperHeight;
     const minVerticalDistance = -10;
 
     function getBoundY(y) {
@@ -85,21 +86,41 @@ function DraggablePaperGroup({ children }) {
     </AnimatedGroup>
   );
 }
+
 function Paper() {
   const { width, height } = useWindowSize();
 
-  const paperWidth = 580;
-  const paperHeight = 500;
+  const paperWidth = Math.min(580, width - 40);
+
+  const paperX = (width - paperWidth) / 2;
+  const paperY = height - visibleCardGap - 15;
 
   return (
-    <Rect
-      x={(width - paperWidth) / 2}
-      y={height - visibleCardGap - 15}
-      width={paperWidth}
-      height={paperHeight}
-      fill="white"
-      cornerRadius={6}
-    />
+    <Group
+      x={paperX + paperWidth / 2}
+      y={paperY + paperHeight / 2}
+      offsetX={paperWidth / 2}
+      offsetY={paperHeight / 2}
+    >
+      <Rect
+        x={0}
+        y={0}
+        width={paperWidth}
+        height={paperHeight * 4}
+        fill="white"
+        cornerRadius={6}
+      />
+      <Text
+        x={0}
+        y={50}
+        text={"The page you're looking for is under construction"}
+        fontSize={20}
+        fill="black"
+        align="center"
+        verticalAlign="middle"
+        width={paperWidth}
+      />
+    </Group>
   );
 }
 
@@ -115,6 +136,7 @@ function Tab() {
       width={tabWidth}
       height={tabHeight}
       fill="teal"
+      cornerRadius={1}
     />
   );
 }
@@ -124,15 +146,44 @@ function Envelope() {
   const envelopeWidth = 600;
   const envelopeHeight = 500;
 
+  const envelopeX = (width - envelopeWidth) / 2;
+  const envelopeY = height - visibleCardGap;
+
+  function handleClickEmail() {
+    window.location.href = "mailto:hello@loscolmebrothers.com";
+  }
+
   return (
-    <Rect
-      x={(width - envelopeWidth) / 2}
-      y={height - visibleCardGap}
-      width={envelopeWidth}
-      height={envelopeHeight}
-      fill="red"
-      cornerRadius={2}
-    />
+    <>
+      <Group
+        x={envelopeX + envelopeWidth / 2}
+        y={envelopeY + envelopeHeight / 2}
+        offsetX={envelopeWidth / 2}
+        offsetY={envelopeHeight / 2}
+      >
+        <Rect
+          x={0}
+          y={0}
+          width={envelopeWidth}
+          height={envelopeHeight}
+          fill="teal"
+          cornerRadius={2}
+        />
+
+        <Text
+          x={0}
+          y={0}
+          text={"hello@loscolmebrothers.com"}
+          fontSize={12}
+          fill="white"
+          align="center"
+          verticalAlign="middle"
+          width={envelopeWidth}
+          padding={15}
+          onClick={handleClickEmail}
+        />
+      </Group>
+    </>
   );
 }
 
