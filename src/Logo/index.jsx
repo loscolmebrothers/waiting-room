@@ -1,25 +1,43 @@
-import { Layer, Image, Group, Text } from "react-konva";
+import { useState, useEffect } from "react";
+import { Layer, Group, Text } from "react-konva";
 import { useSpring, animated } from "@react-spring/konva";
 import random from "random";
 
 import useLogoSlices from "./useLogoSlices";
 
-function FloatingText({ delay, duration, x = 0, y = 0, ...props }) {
+function FloatingText({
+  width = 500,
+  height = 500,
+  x = 0,
+  y = 0,
+  delay = 0,
+  ...props
+}) {
+  const [target, setTarget] = useState({ x, y });
+  const { Image } = animated;
   const animation = useSpring({
-    from: { x, y, scaleX: 1, scaleY: 1 },
-    to: [
-      { x, y: y - random.float(2, 3), scaleX: 1.05, scaleY: 1.05 },
-      { x: x + random.float(8, 15), y, scaleX: 0.95, scaleY: 0.95 },
-      { x, y: y + random.float(2, 3), scaleX: 1.05, scaleY: 1.05 },
-      { x: x - random.float(8, 15), y, scaleX: 0.95, scaleY: 0.95 },
-      { x, y, scaleX: 1, scaleY: 1 },
-    ],
-    config: { duration },
-    loop: true,
+    to: { x: target.x, y: target.y, scaleX: 1, scaleY: 1 },
+    onRest: () => {
+      setTarget({
+        x: x + random.float(-1, 1) * width,
+        y: y + random.float(-1, 1) * height,
+      });
+    },
+    config: {
+      tension: 200,
+      friction: 18,
+    },
     delay,
   });
 
-  return <animated.Image {...props} {...animation} />;
+  useEffect(() => {
+    setTarget({
+      x: x + random.float(-1, 1) * width,
+      y: y + random.float(-1, 1) * height,
+    });
+  }, [x, y, width, height]);
+
+  return <Image {...animation} {...props} />;
 }
 
 function Logo({ width, height }) {
@@ -39,22 +57,26 @@ function Logo({ width, height }) {
     <Layer x={width} y={height} offsetX={width} offsetY={height}>
       <Group x={width} y={height - verticalGap}>
         <FloatingText
-          duration={random.int(2000, 4000)}
+          width={width}
+          height={height}
+          delay={random.float(0, 1000)}
           image={LOS}
           y={-((verticalGap * 3) / 2)}
           offsetX={LOS.width / 2}
           offsetY={LOS.height / 2}
         />
         <FloatingText
-          delay={800}
-          duration={random.int(2000, 4000)}
+          width={width}
+          height={height}
+          delay={random.float(0, 1000)}
           image={COLME}
           offsetX={COLME.width / 2}
           offsetY={COLME.height / 2}
         />
         <FloatingText
-          delay={1500}
-          duration={random.int(2000, 4000)}
+          width={width}
+          height={height}
+          delay={random.float(0, 1000)}
           image={BROTHERS}
           y={(verticalGap * 24) / 13}
           offsetX={BROTHERS.width / 2}
