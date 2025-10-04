@@ -3,7 +3,10 @@ import { Layer, Group, Image, Text } from "react-konva";
 import { useSpring, animated } from "@react-spring/konva";
 import random from "random";
 
+import { setCursor } from "../helpers/cursor";
 import useLogoSlices from "./useLogoSlices";
+import useWindowSize from "../useWindowSize";
+import layerManager from "../helpers/layer-manager";
 
 function EscapingSlice({
   width = 0,
@@ -73,11 +76,6 @@ function EscapingSlice({
     escape(dropPosition);
   }
 
-  function setCursor(event, cursor) {
-    const stage = event.target.getStage();
-    stage.container().style.cursor = cursor;
-  }
-
   return (
     <AnimatedImage
       {...animation}
@@ -97,8 +95,12 @@ function EscapingSlice({
   );
 }
 
-function Logo({ width, height }) {
+function Logo() {
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
   const { isLoading: isLogoLoading, slices } = useLogoSlices();
+
+  const width = windowWidth / 2;
+  const height = windowHeight / 2;
 
   if (isLogoLoading)
     return (
@@ -112,8 +114,14 @@ function Logo({ width, height }) {
 
   return (
     <>
-      <Layer x={width} y={height} offsetX={width} offsetY={height}>
-        <Group x={width} y={height - verticalGap} opacity={0.1}>
+      <Layer
+        x={width}
+        y={height}
+        offsetX={width}
+        offsetY={height}
+        zIndex={layerManager.logo.placeholder}
+      >
+        <Group x={width} y={height - verticalGap} opacity={0.08}>
           <Image
             image={LOS}
             y={-((verticalGap * 3) / 2)}
@@ -133,7 +141,13 @@ function Logo({ width, height }) {
           />
         </Group>
       </Layer>
-      <Layer x={width} y={height} offsetX={width} offsetY={height}>
+      <Layer
+        x={width}
+        y={height}
+        offsetX={width}
+        offsetY={height}
+        zIndex={layerManager.logo.escaping}
+      >
         <Group x={width} y={height - verticalGap}>
           <EscapingSlice
             width={width}
