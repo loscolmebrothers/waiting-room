@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { Layer, Group, Image, Text } from "react-konva";
 import { useSpring, animated } from "@react-spring/konva";
 import random from "random";
@@ -25,26 +25,29 @@ function EscapingSlice({
     },
   }));
 
-  function escape(origin) {
-    if (isDraggingRef.current) return;
+  const escape = useCallback(
+    (origin) => {
+      if (isDraggingRef.current) return;
 
-    const speed = 0.25;
+      const speed = 0.25;
 
-    const destination = {
-      x: origin.x + random.float(-1, 1) * width * speed,
-      y: origin.y + random.float(-1, 1) * height * speed,
-    };
+      const destination = {
+        x: origin.x + random.float(-1, 1) * width * speed,
+        y: origin.y + random.float(-1, 1) * height * speed,
+      };
 
-    api.start({
-      from: origin,
-      to: destination,
-      onRest: () => {
-        if (!isDraggingRef.current) {
-          escape(destination);
-        }
-      },
-    });
-  }
+      api.start({
+        from: origin,
+        to: destination,
+        onRest: () => {
+          if (!isDraggingRef.current) {
+            escape(destination);
+          }
+        },
+      });
+    },
+    [width, height, api],
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,7 +55,7 @@ function EscapingSlice({
     }, delay);
 
     return () => clearTimeout(timer);
-  }, [x, y, delay]);
+  }, [x, y, delay, escape]);
 
   function handleDragStart() {
     isDraggingRef.current = true;
