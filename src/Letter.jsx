@@ -113,8 +113,8 @@ function Paper() {
       <Text
         x={0}
         y={50}
-        text={"The page you're looking for is under construction"}
-        fontSize={20}
+        text={"This site is under construction. Stay tuned!"}
+        fontSize={18}
         fill="black"
         align="center"
         verticalAlign="middle"
