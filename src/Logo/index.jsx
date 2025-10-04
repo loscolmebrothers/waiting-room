@@ -54,12 +54,12 @@ function EscapingSlice({
     return () => clearTimeout(timer);
   }, [x, y, delay]);
 
-  const handleDragStart = () => {
+  function handleDragStart() {
     isDraggingRef.current = true;
     api.stop();
-  };
+  }
 
-  const handleDragEnd = (event) => {
+  function handleDragEnd(event) {
     const dropPosition = {
       x: event.target.x(),
       y: event.target.y(),
@@ -68,15 +68,28 @@ function EscapingSlice({
     isDraggingRef.current = false;
 
     escape(dropPosition);
-  };
+  }
+
+  function setCursor(event, cursor) {
+    const stage = event.target.getStage();
+    stage.container().style.cursor = cursor;
+  }
 
   return (
     <AnimatedImage
       {...animation}
       {...props}
       draggable
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
+      onMouseEnter={(event) => setCursor(event, "grab")}
+      onMouseLeave={(event) => setCursor(event, "default")}
+      onDragStart={(event) => {
+        handleDragStart();
+        setCursor(event, "grabbing");
+      }}
+      onDragEnd={(event) => {
+        handleDragEnd(event);
+        setCursor(event, "grab");
+      }}
     />
   );
 }
