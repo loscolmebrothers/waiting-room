@@ -32,7 +32,7 @@ function EscapingSlice({
     (origin) => {
       if (isDraggingRef.current) return;
 
-      const speed = 0.4;
+      const speed = 0.6;
 
       const destination = {
         x: origin.x + random.float(-1, 1) * width * speed,
