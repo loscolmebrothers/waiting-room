@@ -2,7 +2,7 @@ import { Layer, Rect, Text } from "react-konva";
 import useWindowSize from "./useWindowSize";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useSpring, animated, to } from "@react-spring/konva";
+import { useSpring, animated, to, easings } from "@react-spring/konva";
 
 function Intro({ finish }) {
   const { width, height } = useWindowSize();
@@ -15,7 +15,7 @@ function Intro({ finish }) {
   const [fadeAnimation, fadeApi] = useSpring(() => ({
     from: { opacity: 0 },
     to: { opacity: 1 },
-    config: { duration: 500 },
+    config: { tension: 200, friction: 20 },
   }));
 
   const [gradientAnimation] = useSpring(() => ({
