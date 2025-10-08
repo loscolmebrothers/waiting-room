@@ -6,7 +6,7 @@ import { useSpring, animated, to } from "@react-spring/konva";
 
 function Intro({ finish }) {
   const { width, height } = useWindowSize();
-  const [countdown, setCountdown] = useState(4);
+  const [countdown, setCountdown] = useState(5);
 
   const AnimatedRect = animated.Rect;
   const AnimatedLayer = animated.Layer;
@@ -34,14 +34,14 @@ function Intro({ finish }) {
   const [escapeAnimation] = useSpring(() => ({
     from: { opacity: 0, scale: 0.5 },
     to: { opacity: 1, scale: 1 },
-    delay: 600,
+    delay: 700,
     config: { tension: 200, friction: 20 },
   }));
 
   const [countdownAnimation] = useSpring(() => ({
     from: { opacity: 0, scale: 0.5 },
     to: { opacity: 1, scale: 1 },
-    delay: 1000,
+    delay: 2000,
     config: { tension: 200, friction: 20 },
   }));
 
@@ -81,7 +81,6 @@ function Intro({ finish }) {
         width={width}
         fontSize={32}
         fill="white"
-        fontStyle="bold"
         align="center"
         opacity={quickAnimation.opacity}
         scaleX={quickAnimation.scale}
@@ -95,7 +94,6 @@ function Intro({ finish }) {
         width={width}
         fontSize={24}
         fill="white"
-        fontStyle="bold"
         align="center"
         opacity={escapeAnimation.opacity}
         scaleX={escapeAnimation.scale}
