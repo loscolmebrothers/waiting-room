@@ -1,57 +1,24 @@
 import { Group, Layer, Rect, Text } from "react-konva";
 import useWindowSize from "./useWindowSize";
 import { useEffect, useRef, useState } from "react";
-import { useSpring, animated, to } from "@react-spring/konva";
+import { animated } from "@react-spring/konva";
+import useIntroAnimations from "./useIntroAnimations";
 
 function Intro({ finish }) {
   const { width, height } = useWindowSize();
   const [countdown, setCountdown] = useState(5);
 
-  const [layerFadeOutAnimation, layerFadeOutAnimationApi] = useSpring(() => ({
-    from: { opacity: 1 },
-    config: { tension: 200, friction: 20 },
-  }));
+  const quickTextRef = useRef();
+  const escapeTextRef = useRef();
+  const countdownTextRef = useRef();
 
-  const [backgroundGreyscaleAnimation] = useSpring(() => ({
-    from: { offset: 0 },
-    to: { offset: 3 },
-    loop: true,
-    config: { duration: 600 },
-  }));
-
-  const hasQuickTextAnimatedRef = useRef(false);
-
-  const [quickTextAnimation, quickTextAnimationApi] = useSpring(() => ({
-    from: { opacity: 0, scale: 100 },
-    to: [
-      { opacity: 1, scale: 2 },
-      { opacity: 1, scale: 1 },
-    ],
-    config: { tension: 200, friction: 20 },
-    onStart: () => {
-      hasQuickTextAnimatedRef.current = true;
-    },
-  }));
-
-  useEffect(() => {
-    if (hasQuickTextAnimatedRef.current) {
-      quickTextAnimationApi.stop();
-    }
-  }, [countdown, quickTextAnimationApi]);
-
-  const [escapeTextAnimation] = useSpring(() => ({
-    from: { opacity: 0, scale: 0.6 },
-    to: { opacity: 1, scale: 1 },
-    delay: 1000,
-    config: { tension: 200, friction: 20 },
-  }));
-
-  const [countdownTextAnimation] = useSpring(() => ({
-    from: { opacity: 0, scale: 0.5 },
-    to: { opacity: 1, scale: 1 },
-    delay: 2000,
-    config: { tension: 200, friction: 20 },
-  }));
+  const {
+    layerFadeOutAnimation,
+    greyscaleBackgroundColor,
+    quickTextAnimation,
+    escapeTextAnimation,
+    countdownTextAnimation,
+  } = useIntroAnimations(countdown, finish);
 
   useEffect(() => {
     if (countdown > 0) {
@@ -59,23 +26,8 @@ function Intro({ finish }) {
         setCountdown((prevCount) => prevCount - 1);
       }, 1000);
       return () => clearTimeout(timer);
-    } else {
-      layerFadeOutAnimationApi.start({
-        opacity: 0,
-        config: { duration: 100 },
-        onRest: () => finish(true),
-      });
     }
-  }, [countdown, finish, layerFadeOutAnimationApi]);
-
-  const greyscaleBackgroundColor = to(
-    [backgroundGreyscaleAnimation.offset],
-    (offset) => {
-      const wave = Math.sin(offset * Math.PI * 2) * 0.5 + 0.5;
-      const gray = Math.floor(5 + wave * 10);
-      return `rgb(${gray}, ${gray}, ${gray})`;
-    },
-  );
+  }, [countdown]);
 
   const AnimatedLayer = animated.Layer;
   const AnimatedRect = animated.Rect;
@@ -95,37 +47,39 @@ function Intro({ finish }) {
 
       <AnimatedGroup
         x={width / 2}
-        y={height / 2 - 20}
+        y={height / 2 - 40}
         opacity={quickTextAnimation.opacity}
         scaleX={quickTextAnimation.scale}
         scaleY={quickTextAnimation.scale}
       >
         <Text
+          ref={quickTextRef}
           text="Quick!"
           x={0}
           y={0}
           fontSize={32}
           fill="white"
-          offsetX={50}
-          offsetY={16}
+          offsetX={quickTextRef.current?.width() / 2 || 0}
+          offsetY={quickTextRef.current?.height() / 2 || 0}
         />
       </AnimatedGroup>
 
       <AnimatedGroup
         x={width / 2}
-        y={height / 2 + 20}
+        y={height / 2}
         opacity={escapeTextAnimation.opacity}
         scaleX={escapeTextAnimation.scale}
         scaleY={escapeTextAnimation.scale}
       >
         <Text
+          ref={escapeTextRef}
           text="Don't let them escape"
           x={0}
           y={0}
-          fontSize={24}
+          fontSize={20}
           fill="white"
-          offsetX={165}
-          offsetY={12}
+          offsetX={escapeTextRef.current?.width() / 2 || 0}
+          offsetY={escapeTextRef.current?.height() / 2 || 0}
         />
       </AnimatedGroup>
 
@@ -137,14 +91,15 @@ function Intro({ finish }) {
         scaleY={countdownTextAnimation.scale}
       >
         <Text
+          ref={countdownTextRef}
           text={countdown}
           x={0}
           y={0}
-          fontSize={48}
+          fontSize={62}
           fill="white"
           fontStyle="bold"
-          offsetX={15}
-          offsetY={24}
+          offsetX={countdownTextRef.current?.width() / 2 || 0}
+          offsetY={countdownTextRef.current?.height() / 2 || 0}
         />
       </AnimatedGroup>
     </AnimatedLayer>
