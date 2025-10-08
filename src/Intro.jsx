@@ -1,8 +1,8 @@
-import { Layer, Rect, Text } from "react-konva";
+import { Group, Layer, Rect, Text } from "react-konva";
 import useWindowSize from "./useWindowSize";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useSpring, animated, to, easings } from "@react-spring/konva";
+import { useSpring, animated, to } from "@react-spring/konva";
 
 function Intro({ finish }) {
   const { width, height } = useWindowSize();
@@ -26,14 +26,14 @@ function Intro({ finish }) {
   }));
 
   const [quickAnimation] = useSpring(() => ({
-    from: { opacity: 0, y: -10 },
-    to: { opacity: 1, y: 0 },
+    from: { opacity: 0, scale: 0.5 },
+    to: { opacity: 1, scale: 1 },
     config: { tension: 200, friction: 20 },
   }));
 
   const [escapeAnimation] = useSpring(() => ({
-    from: { opacity: 0, y: -10 },
-    to: { opacity: 1, y: 0 },
+    from: { opacity: 0, scale: 0.5 },
+    to: { opacity: 1, scale: 1 },
     delay: 600,
     config: { tension: 200, friction: 20 },
   }));
@@ -66,10 +66,6 @@ function Intro({ finish }) {
     return `rgb(${gray}, ${gray}, ${gray})`;
   });
 
-  const quickWidth = 60;
-  const escapeWidth = 240;
-  const countdownWidth = 40;
-
   return (
     <AnimatedLayer
       width={width}
@@ -77,34 +73,46 @@ function Intro({ finish }) {
       opacity={fadeAnimation.opacity}
     >
       <AnimatedRect width={width} height={height} fill={backgroundColor} />
+
       <AnimatedText
         text="Quick!"
-        x={(width - quickWidth) / 2}
-        y={height / 2 - 50 + quickAnimation.y}
-        fontSize={22}
+        x={0}
+        y={height / 2 - 20}
+        width={width}
+        fontSize={32}
         fill="white"
+        fontStyle="bold"
+        align="center"
         opacity={quickAnimation.opacity}
+        scaleX={quickAnimation.scale}
+        scaleY={quickAnimation.scale}
       />
+
       <AnimatedText
         text="Don't let them escape"
-        x={(width - escapeWidth) / 2}
-        y={height / 2 - 20 + escapeAnimation.y}
-        fontSize={22}
+        x={0}
+        y={height / 2 + 20}
+        width={width}
+        fontSize={24}
         fill="white"
+        fontStyle="bold"
+        align="center"
         opacity={escapeAnimation.opacity}
+        scaleX={escapeAnimation.scale}
+        scaleY={escapeAnimation.scale}
       />
       <AnimatedText
         text={countdown}
-        x={(width - countdownWidth) / 2}
-        y={height / 2 + 20}
+        x={0}
+        y={height / 2 + 60}
+        width={width}
         fontSize={48}
         fill="white"
         fontStyle="bold"
+        align="center"
         opacity={countdownAnimation.opacity}
         scaleX={countdownAnimation.scale}
         scaleY={countdownAnimation.scale}
-        offsetX={countdownWidth / 2}
-        offsetY={24}
       />
     </AnimatedLayer>
   );
