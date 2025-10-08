@@ -1,5 +1,5 @@
-import { Group, Layer, Rect, Text } from "react-konva";
-import useWindowSize from "./useWindowSize";
+import { Text } from "react-konva";
+import useWindowSize from "../useWindowSize";
 import { useEffect, useRef, useState } from "react";
 import { animated } from "@react-spring/konva";
 import useIntroAnimations from "./useIntroAnimations";
@@ -47,7 +47,7 @@ function Intro({ finish }) {
 
       <AnimatedGroup
         x={width / 2}
-        y={height / 2 - 40}
+        y={height / 2 - 60}
         opacity={quickTextAnimation.opacity}
         scaleX={quickTextAnimation.scale}
         scaleY={quickTextAnimation.scale}
@@ -58,6 +58,7 @@ function Intro({ finish }) {
           x={0}
           y={0}
           fontSize={32}
+          fontFamily="ApfelGrotezk"
           fill="white"
           offsetX={quickTextRef.current?.width() / 2 || 0}
           offsetY={quickTextRef.current?.height() / 2 || 0}
@@ -77,6 +78,7 @@ function Intro({ finish }) {
           x={0}
           y={0}
           fontSize={20}
+          fontFamily="ApfelGrotezk"
           fill="white"
           offsetX={escapeTextRef.current?.width() / 2 || 0}
           offsetY={escapeTextRef.current?.height() / 2 || 0}
@@ -96,6 +98,7 @@ function Intro({ finish }) {
           x={0}
           y={0}
           fontSize={62}
+          fontFamily="ApfelGrotezk"
           fill="white"
           fontStyle="bold"
           offsetX={countdownTextRef.current?.width() / 2 || 0}

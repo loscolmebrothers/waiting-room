@@ -19,8 +19,8 @@ function useIntroAnimations(countdown, finish) {
   const [quickTextAnimation, quickTextAnimationApi] = useSpring(() => ({
     from: { opacity: 0, scale: 100 },
     to: [
-      { opacity: 1, scale: 2 },
       { opacity: 1, scale: 1 },
+      { opacity: 1, scale: 3 },
     ],
     config: { tension: 200, friction: 20 },
     onStart: () => {
