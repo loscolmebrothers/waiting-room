@@ -1,12 +1,11 @@
 import { useEffect, useRef, useCallback } from "react";
-import { Layer, Group, Image, Text } from "react-konva";
+import { Layer, Group, Image } from "react-konva";
 import { useSpring, animated } from "@react-spring/konva";
 import random from "random";
 
-import { setCursor } from "../helpers/cursor";
-import useLogoSlices from "./useLogoSlices";
-import useWindowSize from "../useWindowSize";
-import layerManager from "../helpers/layer-manager";
+import { setCursor } from "./helpers/cursor";
+import useWindowSize from "./useWindowSize";
+import layerManager from "./helpers/layer-manager";
 
 function EscapingSlice({
   width = 0,
@@ -95,22 +94,16 @@ function EscapingSlice({
   );
 }
 
-function Logo() {
+function Logo({ assets }) {
   const { width: windowWidth, height: windowHeight } = useWindowSize();
-  const { isLoading: isLogoLoading, slices } = useLogoSlices();
 
   const width = windowWidth / 2;
   const height = windowHeight / 2;
-
-  if (isLogoLoading)
-    return (
-      <Layer>
-        <Text text="Loading" />
-      </Layer>
-    );
-
   const verticalGap = 65;
-  const { LOS, COLME, BROTHERS } = slices;
+
+  const LOS = assets.losImage;
+  const COLME = assets.colmeImage;
+  const BROTHERS = assets.brothersImage;
 
   return (
     <>

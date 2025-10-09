@@ -9,7 +9,7 @@ import useAssetLoader from "./useAssetLoader";
 
 function App() {
   const { width, height } = useWindowSize();
-  const { isLoading, progress } = useAssetLoader();
+  const { isLoading, progress, assets } = useAssetLoader();
 
   return (
     <Stage
@@ -26,7 +26,7 @@ function App() {
         <>
           <Badge />
           <Letter />
-          <Logo />
+          <Logo assets={assets.images} />
         </>
       )}
     </Stage>
