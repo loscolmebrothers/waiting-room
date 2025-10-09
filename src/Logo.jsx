@@ -94,6 +94,50 @@ function EscapingSlice({
   );
 }
 
+function FloatingText({ delay = 0, initialDelay = 0, baseY = 0, ...props }) {
+  const { Image: AnimatedImage } = animated;
+
+  const hasStartedRef = useRef(false);
+
+  const [animation, api] = useSpring(() => ({
+    from: { y: baseY },
+    config: {
+      tension: 80,
+      friction: 20,
+    },
+  }));
+
+  const float = useCallback(
+    (currentY) => {
+      const floatRange = 15;
+      const destination = currentY + random.float(-floatRange, floatRange);
+
+      api.start({
+        to: { y: destination },
+        onRest: () => {
+          float(destination);
+        },
+      });
+    },
+    [api],
+  );
+
+  useEffect(() => {
+    const initialTimer = setTimeout(() => {
+      hasStartedRef.current = true;
+      const timer = setTimeout(() => {
+        float(baseY);
+      }, delay);
+
+      return () => clearTimeout(timer);
+    }, initialDelay);
+
+    return () => clearTimeout(initialTimer);
+  }, [baseY, delay, initialDelay, float]);
+
+  return <AnimatedImage {...animation} {...props} />;
+}
+
 function Logo({ assets }) {
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
@@ -115,22 +159,44 @@ function Logo({ assets }) {
         zIndex={layerManager.logo.placeholder}
       >
         <Group x={width} y={height - verticalGap} opacity={0.08}>
-          <Image
+          <FloatingText
             image={LOS}
-            y={-((verticalGap * 3) / 2)}
+            baseY={-((verticalGap * 3) / 2)}
+            initialDelay={2000}
+            delay={random.float(0, 500)}
             offsetX={LOS.width / 2}
             offsetY={LOS.height / 2}
+            shadowColor="black"
+            shadowBlur={10}
+            shadowOffsetX={-2}
+            shadowOffsetY={-2}
+            shadowOpacity={0.6}
           />
-          <Image
+          <FloatingText
             image={COLME}
+            baseY={0}
+            initialDelay={2000}
+            delay={random.float(0, 500)}
             offsetX={COLME.width / 2}
             offsetY={COLME.height / 2}
+            shadowColor="black"
+            shadowBlur={10}
+            shadowOffsetX={-2}
+            shadowOffsetY={-2}
+            shadowOpacity={0.6}
           />
-          <Image
+          <FloatingText
             image={BROTHERS}
-            y={(verticalGap * 24) / 13}
+            baseY={(verticalGap * 24) / 13}
+            initialDelay={2000}
+            delay={random.float(0, 500)}
             offsetX={BROTHERS.width / 2}
             offsetY={BROTHERS.height / 2}
+            shadowColor="black"
+            shadowBlur={10}
+            shadowOffsetX={-2}
+            shadowOffsetY={-2}
+            shadowOpacity={0.6}
           />
         </Group>
       </Layer>
