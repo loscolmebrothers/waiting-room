@@ -3,23 +3,23 @@ import { Stage } from "react-konva";
 import Logo from "./Logo";
 import useWindowSize from "./useWindowSize";
 import Letter from "./Letter";
-import { useState } from "react";
-import Intro from "./Intro";
+import Badge from "./Badge";
 
 function App() {
   const { width, height } = useWindowSize();
-  const [isIntroFinished, setIsIntroFinished] = useState(true);
 
   return (
-    <Stage width={width} height={height}>
-      {!isIntroFinished ? (
-        <Intro finish={() => setIsIntroFinished(true)} />
-      ) : (
-        <>
-          <Letter />
-          <Logo />
-        </>
-      )}
+    <Stage
+      width={width}
+      height={height}
+      pixelRatio={1}
+      perfectDrawEnabled={false}
+      shadowForStrokeEnabled={false}
+      strokeScaleEnabled={false}
+    >
+      <Badge />
+      <Letter />
+      <Logo />
     </Stage>
   );
 }
