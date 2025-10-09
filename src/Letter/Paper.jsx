@@ -29,10 +29,10 @@ function Paper() {
         height={paperHeight * 4}
         fill="white"
         cornerRadius={6}
-        shadowColor="rgba(0, 0, 0, 0.15)"
+        shadowColor="rgba(0, 0, 0, 0.12)"
         shadowBlur={10}
         shadowOffsetX={0}
-        shadowOffsetY={2}
+        shadowOffsetY={3}
       />
       <Rect
         x={0}
@@ -41,7 +41,7 @@ function Paper() {
         height={paperHeight * 4}
         fillPatternImage={paperTexture}
         fillPatternRepeat="repeat"
-        fillPatternScale={{ x: 0.3, y: 0.3 }}
+        fillPatternScale={{ x: 0.5, y: 0.5 }}
         opacity={0.4}
         cornerRadius={6}
       />
