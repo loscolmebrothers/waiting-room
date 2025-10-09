@@ -8,7 +8,7 @@ import Intro from "./Intro";
 
 function App() {
   const { width, height } = useWindowSize();
-  const [isIntroFinished, setIsIntroFinished] = useState(false);
+  const [isIntroFinished, setIsIntroFinished] = useState(true);
 
   return (
     <Stage width={width} height={height} className="frame">
