@@ -6,10 +6,16 @@ import useWindowSize from "../useWindowSize";
 import { setCursor } from "../helpers/cursor";
 import { visibleCardGap } from "./constants";
 import useEnvelopeAnimations from "./useEnvelopeAnimations";
+import useImage from "use-image";
 
 function Envelope() {
   const { width, height } = useWindowSize();
   const { Line: AnimatedLine, Text: AnimatedText } = animated;
+
+  const [cartulinaTexture] = useImage(
+    "https://assets.loscolmebrothers.com/textures/cartulina.jpg",
+  );
+
   const textRef = useRef();
 
   const envelopeWidth = 600;
@@ -58,12 +64,23 @@ function Envelope() {
         y={0}
         width={envelopeWidth}
         height={envelopeHeight}
-        fill="teal"
+        fill="rgba(255, 206, 27)"
         cornerRadius={2}
         shadowColor="rgba(0, 0, 0, 0.3)"
         shadowBlur={20}
         shadowOffsetX={0}
         shadowOffsetY={4}
+      />
+      <Rect
+        x={0}
+        y={0}
+        width={envelopeWidth}
+        height={envelopeHeight}
+        fillPatternImage={cartulinaTexture}
+        fillPatternRepeat="repeat"
+        fillPatternScale={{ x: 0.3, y: 0.3 }}
+        opacity={0.4}
+        cornerRadius={2}
       />
 
       <AnimatedText
@@ -80,8 +97,8 @@ function Envelope() {
         text={emailText}
         fontSize={emailTextFontSize}
         fontFamily="ApfelGrotezk"
-        fill="white"
-        opacity={0.9}
+        fill="black"
+        opacity={0.6}
         onClick={handleClickEmail}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

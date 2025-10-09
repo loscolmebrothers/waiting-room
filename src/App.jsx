@@ -11,7 +11,7 @@ function App() {
   const [isIntroFinished, setIsIntroFinished] = useState(true);
 
   return (
-    <Stage width={width} height={height} className="frame">
+    <Stage width={width} height={height}>
       {!isIntroFinished ? (
         <Intro finish={() => setIsIntroFinished(true)} />
       ) : (

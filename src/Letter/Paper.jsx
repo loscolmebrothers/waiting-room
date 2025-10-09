@@ -6,8 +6,8 @@ import { visibleCardGap, paperHeight } from "./constants";
 
 function Paper() {
   const { width, height } = useWindowSize();
-  const [textureImage] = useImage(
-    "https://assets.loscolmebrothers.com/paper-texture.jpg",
+  const [paperTexture] = useImage(
+    "https://assets.loscolmebrothers.com/textures/paper.jpg",
   );
 
   const paperWidth = Math.min(580, width - 40);
@@ -39,7 +39,7 @@ function Paper() {
         y={0}
         width={paperWidth}
         height={paperHeight * 4}
-        fillPatternImage={textureImage}
+        fillPatternImage={paperTexture}
         fillPatternRepeat="repeat"
         fillPatternScale={{ x: 0.3, y: 0.3 }}
         opacity={0.4}

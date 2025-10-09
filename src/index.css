@@ -5,10 +5,6 @@ body,
     padding: 0;
 }
 
-.frame {
-    background-color: whitesmoke;
-}
-
 @font-face {
     font-family: "ApfelGrotezk";
     src: url("https://assets.loscolmebrothers.com/fonts/ApfelGrotezk/ApfelGrotezk-Regular.otf")
