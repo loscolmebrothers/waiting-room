@@ -4,9 +4,12 @@ import Logo from "./Logo";
 import useWindowSize from "./useWindowSize";
 import Letter from "./Letter";
 import Badge from "./Badge";
+import Loader from "./Loader";
+import useAssetLoader from "./useAssetLoader";
 
 function App() {
   const { width, height } = useWindowSize();
+  const { isLoading, progress } = useAssetLoader();
 
   return (
     <Stage
@@ -17,9 +20,15 @@ function App() {
       shadowForStrokeEnabled={false}
       strokeScaleEnabled={false}
     >
-      <Badge />
-      <Letter />
-      <Logo />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <Badge />
+          <Letter />
+          <Logo />
+        </>
+      )}
     </Stage>
   );
 }
