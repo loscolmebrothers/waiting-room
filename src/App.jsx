@@ -13,7 +13,7 @@ function App() {
   const { width, height } = useWindowSize();
   const { isLoading, progress, assets } = useAssetLoader();
 
-  if (isIOS()) {
+  if (true) {
     return <IOSFallback />;
   }
 

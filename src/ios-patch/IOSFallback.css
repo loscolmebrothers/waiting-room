@@ -4,8 +4,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #ffffff;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 20px;
@@ -13,97 +14,83 @@
 }
 
 .ios-fallback-content {
-    background: white;
-    border-radius: 16px;
-    padding: 40px 30px;
-    max-width: 500px;
+    background: #000000;
+    border-radius: 8px;
+    padding: 50px 40px;
+    max-width: 600px;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.ios-fallback-icon {
-    font-size: 64px;
-    margin-bottom: 20px;
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%,
-    100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
+    box-shadow: none;
 }
 
 .ios-fallback-title {
-    font-size: 32px;
-    font-weight: bold;
-    color: #333;
-    margin: 0 0 20px 0;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: #ffffff;
+    margin: 0 0 30px 0;
+    font-family: ApfelGrotezk;
+    letter-spacing: -0.02em;
 }
 
 .ios-fallback-message {
-    font-size: 18px;
-    color: #555;
-    margin: 0 0 15px 0;
-    line-height: 1.5;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", sans-serif;
+    font-size: 20px;
+    color: #ffffff;
+    margin: 0 0 20px 0;
+    line-height: 1.6;
+    font-family: ApfelGrotezk;
 }
 
 .ios-fallback-submessage {
-    font-size: 16px;
-    color: #666;
-    margin: 0 0 20px 0;
-    line-height: 1.5;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    margin: 0 0 25px 0;
+    line-height: 1.6;
+    font-family: ApfelGrotezk;
 }
 
 .ios-fallback-alternatives {
     list-style: none;
     padding: 0;
-    margin: 0 0 25px 0;
+    margin: 0 0 30px 0;
 }
 
 .ios-fallback-alternatives li {
-    font-size: 16px;
-    color: #667eea;
+    font-size: 18px;
+    color: #ffffff;
     font-weight: 600;
-    margin: 10px 0;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", sans-serif;
+    margin: 12px 0;
+    font-family: ApfelGrotezk;
+}
+
+.ios-fallback-alternatives li::before {
+    content: "→ ";
+    margin-right: 8px;
 }
 
 .ios-fallback-footer {
-    font-size: 14px;
-    color: #888;
+    font-size: 16px;
+    color: #ffffff;
     margin: 0;
-    font-style: italic;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", sans-serif;
+    font-family: ApfelGrotezk;
+}
+
+.ios-fallback-logo {
+    position: fixed;
+    bottom: 80px;
+    max-width: 300px;
+    height: auto;
+    opacity: 0.9;
+    filter: none;
+    will-change: transform;
 }
 
 @media (max-width: 480px) {
     .ios-fallback-content {
-        padding: 30px 20px;
-    }
-
-    .ios-fallback-icon {
-        font-size: 48px;
+        padding: 40px 25px;
     }
 
     .ios-fallback-title {
-        font-size: 24px;
+        font-size: 32px;
+        margin-bottom: 20px;
     }
 
     .ios-fallback-message {
@@ -111,10 +98,19 @@
     }
 
     .ios-fallback-submessage {
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .ios-fallback-alternatives li {
+        font-size: 15px;
+    }
+
+    .ios-fallback-footer {
         font-size: 14px;
+    }
+
+    .ios-fallback-logo {
+        max-width: 250px;
+        bottom: 60px;
     }
 }
