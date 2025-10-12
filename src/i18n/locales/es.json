@@ -9,9 +9,9 @@
     "message": "Este sitio está en construcción. ¡Atento!"
   },
   "iosFallback": {
-    "title": "¡Ups, nuestro error!",
+    "title": "¡Oh no!",
     "message": "Parece que tenemos un pequeño problema con los iPhones en este momento. La app tiende a cerrarse, y definitivamente no estamos orgullosos de eso.",
-    "submessage": "¡Pero estamos trabajando en ello! Mientras lo arreglamos, ¿podrías intentar desde:",
+    "submessage": "¡Pero estamos trabajando en ello! Mientras lo arreglamos, Intenta acceder desde:",
     "alternatives": {
       "computer": "Tu computadora",
       "android": "Un teléfono Android"

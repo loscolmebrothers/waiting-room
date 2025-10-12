@@ -75,7 +75,7 @@
 
 .ios-fallback-logo {
     position: fixed;
-    bottom: 60px;
+    bottom: 40px;
     max-width: 300px;
     height: auto;
     opacity: 0.9;
@@ -111,6 +111,6 @@
 
     .ios-fallback-logo {
         max-width: 250px;
-        bottom: 60px;
+        bottom: 40px;
     }
 }

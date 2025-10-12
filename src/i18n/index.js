@@ -11,7 +11,6 @@ const resources = {
 const getBrowserLanguage = () => {
   const language = navigator.language || navigator.userLanguage;
   const languageCode = language.split("-")[0];
-  return "es";
   return languageCode === "es" ? "es" : "en";
 };
 
