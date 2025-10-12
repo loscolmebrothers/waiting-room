@@ -26,7 +26,7 @@ function Badge() {
   const shadowAnimation = useSpring({
     from: { shadowOffsetY: 8 },
     to: { shadowOffsetY: 4 },
-    config: { duration: 500 },
+    config: { duration: 2000 },
     loop: { reverse: true },
   });
 
