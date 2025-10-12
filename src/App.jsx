@@ -6,15 +6,15 @@ import Letter from "./Letter";
 import Badge from "./Badge";
 import Loader from "./Loader";
 import useAssetLoader from "./useAssetLoader";
-import SafariFallback from "./safari-ios-patch/SafariFallback";
-import { isSafariIOS } from "./safari-ios-patch/detectSafariIOS";
+import IOSFallback from "./ios-patch/IOSFallback";
+import { isIOS } from "./ios-patch/detectIOS";
 
 function App() {
   const { width, height } = useWindowSize();
   const { isLoading, progress, assets } = useAssetLoader();
 
-  if (isSafariIOS()) {
-    return <SafariFallback />;
+  if (isIOS()) {
+    return <IOSFallback />;
   }
 
   return (
