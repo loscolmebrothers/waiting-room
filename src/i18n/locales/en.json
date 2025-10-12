@@ -1,0 +1,21 @@
+{
+  "app": {
+    "title": "Waiting room"
+  },
+  "badge": {
+    "message": "🏃 Don't let them get away!"
+  },
+  "paper": {
+    "message": "This site is under construction. Stay tuned!"
+  },
+  "iosFallback": {
+    "title": "Oops, our bad!",
+    "message": "Looks like we've got a little issue with iOS devices right now. The app tends to crash, and we're definitely not proud of that.",
+    "submessage": "We're on it though! While we fix this, mind trying from:",
+    "alternatives": {
+      "computer": "Your computer",
+      "android": "An Android phone"
+    },
+    "footer": "Thanks for sticking with us!"
+  }
+}

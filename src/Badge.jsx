@@ -1,12 +1,14 @@
 import { Layer, Rect, Text, Group } from "react-konva";
 import { useSpring, animated } from "@react-spring/konva";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import useWindowSize from "./useWindowSize";
 import { setCursor } from "./helpers/cursor";
 
 function Badge() {
+  const { t } = useTranslation();
   const { width } = useWindowSize();
-  const badgeText = "🏃 Don't let them get away!";
+  const badgeText = t("badge.message");
   const padding = 16;
   const fontSize = 14;
   const badgeHeight = 32;

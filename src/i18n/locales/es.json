@@ -1,0 +1,21 @@
+{
+  "app": {
+    "title": "Sala de espera"
+  },
+  "badge": {
+    "message": "🏃 No dejes que se escapen"
+  },
+  "paper": {
+    "message": "Este sitio está en construcción. ¡Atento!"
+  },
+  "iosFallback": {
+    "title": "¡Ups, nuestro error!",
+    "message": "Parece que tenemos un pequeño problema con los iPhones en este momento. La app tiende a cerrarse, y definitivamente no estamos orgullosos de eso.",
+    "submessage": "¡Pero estamos trabajando en ello! Mientras lo arreglamos, ¿podrías intentar desde:",
+    "alternatives": {
+      "computer": "Tu computadora",
+      "android": "Un teléfono Android"
+    },
+    "footer": "¡Gracias por tu paciencia!"
+  }
+}

@@ -1,10 +1,12 @@
 import { Group, Rect, Text } from "react-konva";
 import useImage from "use-image";
+import { useTranslation } from "react-i18next";
 
 import useWindowSize from "../useWindowSize";
 import { visibleCardGap, paperHeight } from "./constants";
 
 function Paper() {
+  const { t } = useTranslation();
   const { width, height } = useWindowSize();
   const [paperTexture] = useImage(
     "https://assets.loscolmebrothers.com/textures/paper.jpg",
@@ -49,7 +51,7 @@ function Paper() {
       <Text
         x={0}
         y={50}
-        text={"This site is under construction. Stay tuned!"}
+        text={t("paper.message")}
         fontSize={16}
         fontFamily="ApfelGrotezk"
         fill="black"
